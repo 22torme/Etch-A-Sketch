@@ -14,11 +14,17 @@
     </header>
     <section>
     <div class="controller">
-        <input type="color" id="color-picker">
-        <input type="number" id="grid-size" placeholder="Grid Size">
+        <input type="color" id="color">
+        <div>
+        <input type="range" id="size" placeholder="Grid Size" min="4" max="64" step="4" oninput="this.nextElementSibling.value = this.value">
+        <output>24</output>
+        </div>
         <button id="reset">Reset</button>
     </div>
     <div class="container"></div>
     </section>
+    <footer>
+        <p>Created by <a href="https://github.com/22torme">Tyler Orme</a></p>
+    </footer>
 </body>
 </html>
