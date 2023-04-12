@@ -5,15 +5,42 @@ const container = document.querySelector('.container');
 //create div element
 const div = document.createElement('div');
 
+//select size slider
+const size = document.querySelector('#size');
+// console.log(size);
+let sizeValue = size.value;
+
+//-------------------------------------------------
+function addColumnEventListeners(){
+    columns.forEach((column) => {
+        column.addEventListener('mousedown', () => {
+          mouseDown = true;
+        });
+        column.addEventListener('mouseup', () => {
+          mouseDown = false;
+        });
+        column.addEventListener('mouseover', () => {
+          if (mouseDown) {
+            column.style.backgroundColor = colorValue;
+          }
+        });
+        column.addEventListener('click', () => {
+          column.style.backgroundColor = colorValue;
+        });
+      });
+}
+//-------------------------------------------------
+
+//-------------------------------------------------
+function createGrid(sizeValue) {
 // Loop through each row
-for (var i = 0; i < 16; i++) {
+for (var i = 0; i < sizeValue; i++) {
   // Create a new row element
   var row = document.createElement("div");
   row.classList.add("row");
 
-
   // Loop through each column in the current row
-  for (var j = 0; j < 16; j++) {
+  for (var j = 0; j < sizeValue; j++) {
     // Create a new column element
     var col = document.createElement("div");
     col.classList.add("col");
@@ -25,10 +52,27 @@ for (var i = 0; i < 16; i++) {
   // Append the row element to the container element
   container.appendChild(row);
 }
+columns = document.querySelectorAll('.col');
+addColumnEventListeners();
+}
+//-------------------------------------------------
 
-//selecting all columns
-const columns = document.querySelectorAll('.col');
-console.log(columns);
+
+
+
+let columns = document.querySelectorAll('.col');
+createGrid(sizeValue);
+
+
+//add event listener to size slider
+size.addEventListener('change', () => {
+    sizeValue = size.value;
+    container.innerHTML = '';
+    createGrid(sizeValue);
+    columns = document.querySelectorAll('.col');
+    console.log(columns);
+    console.log(sizeValue);
+});
 
 //-------------------------------------------------
 //get color from color picker
@@ -38,20 +82,18 @@ let colorValue = color.value;
 //add event listener to color picker
 color.addEventListener('change', () => {
     colorValue = color.value;
-    columns.style.hover = colorValue;
+    console.log(colorValue);
 });
 //-------------------------------------------------
 
 
-
-
 //-------------------------------------------------
-//COLUMNS
 let mouseDown = false;
 
 columns.forEach((column) => {
     column.addEventListener('mousedown', () => {
         mouseDown = true;
+        console.log(mouseDown)
         });
         column.addEventListener('mouseup', () => {
             mouseDown = false;
@@ -59,24 +101,14 @@ columns.forEach((column) => {
             column.addEventListener('mouseover', () => {
                 if (mouseDown) {
                     column.style.backgroundColor = colorValue;
-                    column:hover = colorValue;
                 }
             });
         });
-
-columns.forEach((column) => {
-    column.addEventListener('click', () => {
-        column.style.backgroundColor = colorValue;
-    });
-});
 
 //-------------------------------------------------
 
 //RESET BUTTON
 const reset = document.querySelector('#reset');
 reset.addEventListener('click', () => {
-  columns.forEach((column) => {
-    column.style.backgroundColor = 'white';
-  });
-}
-);
+    location.reload();
+});

@@ -62,9 +62,3 @@ section{
     flex:1;
     border: 0.5px solid black;
   }
-
-    /* have background-color be the current color value*/
-  .col:hover{
-    background-color: black;
-  }
-
